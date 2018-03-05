@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="HTML5小游戏," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、概述CreateJS是一套便于HTML5开发游戏的库，当前这个实战例子主要用到其中之一的EaselJS(主要处理canvas) 二、场景搭建①，确定游戏场景尺寸游戏场景尺寸 → canvas画布的大小通过素材的大小大概拟定一下就好了，宽高 =&amp;gt; (480 * 800) ②，背景图片处理 第一种方式：背景图处理，直接img标签 | background-image属性就可以了 第二种方式：">
+<meta name="keywords" content="HTML5小游戏">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CreateJS实战 &quot;围住神经猫&quot;">
+<meta property="og:url" content="http://yoursite.com/2017/12/12/nerve-cat/index.html">
+<meta property="og:site_name" content="非黑即白">
+<meta property="og:description" content="一、概述CreateJS是一套便于HTML5开发游戏的库，当前这个实战例子主要用到其中之一的EaselJS(主要处理canvas) 二、场景搭建①，确定游戏场景尺寸游戏场景尺寸 → canvas画布的大小通过素材的大小大概拟定一下就好了，宽高 =&amp;gt; (480 * 800) ②，背景图片处理 第一种方式：背景图处理，直接img标签 | background-image属性就可以了 第二种方式：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-10T09:31:20.816Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CreateJS实战 &quot;围住神经猫&quot;">
+<meta name="twitter:description" content="一、概述CreateJS是一套便于HTML5开发游戏的库，当前这个实战例子主要用到其中之一的EaselJS(主要处理canvas) 二、场景搭建①，确定游戏场景尺寸游戏场景尺寸 → canvas画布的大小通过素材的大小大概拟定一下就好了，宽高 =&amp;gt; (480 * 800) ②，背景图片处理 第一种方式：背景图处理，直接img标签 | background-image属性就可以了 第二种方式：">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/12/nerve-cat/"/>
+
+
+
+
+
+  <title>CreateJS实战 "围住神经猫" | 非黑即白</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">非黑即白</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/12/nerve-cat/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="非黑即白">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非黑即白">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CreateJS实战 "围住神经猫"</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-12T18:30:12+08:00">
+                2017-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><p>CreateJS是一套便于HTML5开发游戏的库，当前这个实战例子主要用到其中之一的EaselJS(主要处理canvas)</p>
+<h3 id="二、场景搭建"><a href="#二、场景搭建" class="headerlink" title="二、场景搭建"></a>二、场景搭建</h3><h4 id="①，确定游戏场景尺寸"><a href="#①，确定游戏场景尺寸" class="headerlink" title="①，确定游戏场景尺寸"></a>①，确定游戏场景尺寸</h4><p>游戏场景尺寸 → canvas画布的大小<br>通过素材的大小大概拟定一下就好了，宽高 =&gt; (480 * 800)</p>
+<h4 id="②，背景图片处理"><a href="#②，背景图片处理" class="headerlink" title="②，背景图片处理"></a>②，背景图片处理</h4><ul>
+<li>第一种方式：背景图处理，直接img标签 | background-image属性就可以了</li>
+<li>第二种方式：js new Image 生成图片 → 丢进canvas绘制</li>
+</ul>
+<h3 id="三、建立Stage-amp-游戏主循环"><a href="#三、建立Stage-amp-游戏主循环" class="headerlink" title="三、建立Stage &amp; 游戏主循环"></a>三、建立Stage &amp; 游戏主循环</h3><h4 id="①，建立Stage"><a href="#①，建立Stage" class="headerlink" title="①，建立Stage"></a>①，建立Stage</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stage = <span class="keyword">new</span> createjs.Stage(<span class="string">'gameCanvas'</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="②，建立游戏主循环"><a href="#②，建立游戏主循环" class="headerlink" title="②，建立游戏主循环"></a>②，建立游戏主循环</h4><blockquote>
+<p>HTML5中主循环的控制无非3种：requestAnimationFrame、setInterval、setTimeout</p>
+</blockquote>
+<p>CreateJS Ticker建立游戏主循环：(底层就是基于setTimeout和requestAnimationFrame)<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">createjs.Ticker.framerate = <span class="number">30</span>; <span class="comment">// 设置帧频率</span></span><br><span class="line">createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED; <span class="comment">// 更改默认[setTimeout]</span></span><br><span class="line">createjs.Ticker.addEventListener(<span class="string">'tick'</span>, handleTick);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleTick</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// todo</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="四、创建动画"><a href="#四、创建动画" class="headerlink" title="四、创建动画"></a>四、创建动画</h3><blockquote>
+<p>动画原理：每秒播放不同的图片，形成视觉残留，错觉上感觉是连续的<br>动画中的fps是每秒播放多少帧图片，和游戏上有些差异，游戏中的fps指刷新频率，每秒刷新多少次</p>
+</blockquote>
+<h4 id="纹理集动画-SpriteSheet"><a href="#纹理集动画-SpriteSheet" class="headerlink" title="纹理集动画(SpriteSheet)"></a>纹理集动画(SpriteSheet)</h4><p>实际上就是常说的精灵图，将多张图片拼接到一张大图上，一次性导入和管理。<br>不同的是，通常会附带一个描述文件，说明是如何播放动画的(xml、json)</p>
+<h5 id="用EaselJS实现纹理集动画"><a href="#用EaselJS实现纹理集动画" class="headerlink" title="用EaselJS实现纹理集动画"></a>用EaselJS实现纹理集动画</h5><ol>
+<li><p>改写纹理集动画的描述，以EaselJS的格式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EaselJS指定的动画配置，替代了原始描述文件的内容</span></span><br><span class="line"><span class="keyword">var</span> data = &#123;</span><br><span class="line">    framerate: <span class="number">15</span>,</span><br><span class="line">    images: [path],</span><br><span class="line">    frames: &#123; <span class="attr">width</span>: , <span class="attr">heigth</span>: , <span class="attr">regX</span>: , <span class="attr">regY</span>: &#125;,</span><br><span class="line">    animations: &#123; <span class="attr">run</span>: [<span class="number">0</span>, <span class="number">14</span>] &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 转成EaselJS的SpriteSheet形式</span></span><br><span class="line"><span class="keyword">var</span> spriteSheet = <span class="keyword">new</span> createjs.SpriteSheet(data);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现动画</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> animation = <span class="keyword">new</span> createjs.Sprite(spriteSheet, <span class="string">'run'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 还要添加到stage上，只有stage的子元素才能显示</span></span><br><span class="line">stage.addChild(animation);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="五、创建地图"><a href="#五、创建地图" class="headerlink" title="五、创建地图"></a>五、创建地图</h3><h4 id="①，分析地图"><a href="#①，分析地图" class="headerlink" title="①，分析地图"></a>①，分析地图</h4><p>神经猫的地图很明显是一个二维数组，只不过稍微有些变形、交错。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> grid = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">9</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createMap</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i++)&#123;</span><br><span class="line">        grid[i] = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">9</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++)&#123;</span><br><span class="line">            <span class="comment">// 图片绘制原型</span></span><br><span class="line">            <span class="keyword">var</span> bitmap = <span class="keyword">new</span> createj.Bitmap(<span class="string">'images/pot1.png'</span>);</span><br><span class="line"></span><br><span class="line">            stage.addChild(bitmap);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> offset = i % <span class="number">2</span> ? CircleDiameter / <span class="number">2</span> : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 列</span></span><br><span class="line">            bitmap.x = <span class="number">20</span> + CircleDiameter * j + offset;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 行</span></span><br><span class="line">            bitmap.y = <span class="number">250</span> + CircleDiameter * i;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 存入数组</span></span><br><span class="line">            grid[i][j] = bitmap;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="②，对地图每一个坐标的圆进行抽象-→-类"><a href="#②，对地图每一个坐标的圆进行抽象-→-类" class="headerlink" title="②，对地图每一个坐标的圆进行抽象 → 类"></a>②，对地图每一个坐标的圆进行抽象 → 类</h4><blockquote>
+<p>原因是：神经猫的逃跑要根据每一个坐标上圆是否可以被选中来决定，也就是说，每一个圆至少要有坐标值信息以及当前选中状态信息。显然，面向对象的方式会简便很多。 </p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 圆形类</span></span><br><span class="line"><span class="comment">// 包含信息：</span></span><br><span class="line"><span class="comment">// type - 圆的类型，可选 or 已选</span></span><br><span class="line"><span class="comment">// row - 坐标值的行值</span></span><br><span class="line"><span class="comment">// col - 坐标值的列值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Circle</span>(<span class="params">type, row ,col</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.type = type;</span><br><span class="line">    <span class="keyword">this</span>.row = row;</span><br><span class="line">    <span class="keyword">this</span>.col = col;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对每一个圆形进行初始化</span></span><br><span class="line">    <span class="keyword">this</span>.setType(type);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 继承自createjs.Bitmap()</span></span><br><span class="line">Circle.prototype = <span class="keyword">new</span> createjs.Bitmap();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 圆形分2类：可选 | 已选</span></span><br><span class="line">Circle.TYPE_UNSELECTED = <span class="number">0</span>;</span><br><span class="line">Circle.TYPE_SELECTED = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">Circle.prototype.setType = <span class="function"><span class="keyword">function</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.type = type;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span>(type)&#123;</span><br><span class="line">        <span class="keyword">case</span> Circle.TYPE_UNSELECTED:</span><br><span class="line">            createjs.Bitmap.call(<span class="keyword">this</span>, <span class="string">'images/pot1.png'</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> Circle.TYPE.SELECTED:</span><br><span class="line">            createjs.Bitmap.call(<span class="keyword">this</span>, <span class="string">'images/pot2.png'</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="③，使用自定义类进行绘制地图"><a href="#③，使用自定义类进行绘制地图" class="headerlink" title="③，使用自定义类进行绘制地图"></a>③，使用自定义类进行绘制地图</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createMap</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(...)&#123;</span><br><span class="line">        <span class="keyword">for</span>(...)&#123;</span><br><span class="line">            <span class="comment">// 图片绘制原型</span></span><br><span class="line">            <span class="comment">// var bitmap = new createj.Bitmap('images/pot1.png');</span></span><br><span class="line">            <span class="keyword">var</span> bitmap = <span class="keyword">new</span> Circle(Circle.UNSELECTED, i, j);</span><br><span class="line"></span><br><span class="line">            stage.addChild(bitmap);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="④，简单随机算法-→-初始地图"><a href="#④，简单随机算法-→-初始地图" class="headerlink" title="④，简单随机算法 → 初始地图"></a>④，简单随机算法 → 初始地图</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createMap</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(...)&#123;</span><br><span class="line">        <span class="keyword">for</span>(...)&#123;</span><br><span class="line">            <span class="comment">// 随机算法, 只要选中状态的少一点就好了</span></span><br><span class="line">            <span class="keyword">var</span> ranType = <span class="built_in">Math</span>.random() &lt; <span class="number">0.3</span> ? Circle.TYPE_UNSELECTED : Circle.TYPE_SELECTED;</span><br><span class="line">            <span class="keyword">if</span>(i === <span class="number">4</span> &amp;&amp; j === <span class="number">4</span>)&#123;     <span class="comment">// 神经猫站立位置必须可选</span></span><br><span class="line">                ranType = Circle.TYPE_UNSELECTED;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> bitmap = Circle(ranType, i, j);</span><br><span class="line">            stage.addChild(bitmap);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="六、监听点击、判断点击圆"><a href="#六、监听点击、判断点击圆" class="headerlink" title="六、监听点击、判断点击圆"></a>六、监听点击、判断点击圆</h3><h4 id="①-监听点击事件"><a href="#①-监听点击事件" class="headerlink" title="①. 监听点击事件"></a>①. 监听点击事件</h4><p>给每一个圆都绑定监听事件，这样就很容易判断点击圆，如果用委托代理做绑定的话，还要循环判断e.target是否在数组内，比较麻烦。</p>
+<p>需要注意：</p>
+<ul>
+<li>报错信息：画布像素跨域访问出错</li>
+<li>解决：放到服务器上访问就可以了，不要本地打开index.html</li>
+<li>服务器搭建：最简单的就是nodejs, <code>安装命令：npm install http-server -g</code>, <code>目标目录下启动：http-server</code>, local:8080就可以访问了</li>
+</ul>
+<h4 id="②，点击切换圆的状态"><a href="#②，点击切换圆的状态" class="headerlink" title="②，点击切换圆的状态"></a>②，点击切换圆的状态</h4><p>Circle.TYPE_SELECTED → Circle.TYPE_UNSELECTED</p>
+<p>模拟切换：</p>
+<ul>
+<li>a.移除当前位置的圆</li>
+<li>b.新增一个Circle.TYPE_UNSELECTED的圆</li>
+<li>c.新增后一定不要忘记添加到stage中，否则无法显示</li>
+<li>d.显示需要注意，在原位置显示，所以移除之前需要保留x,y坐标值</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTML5小游戏/" rel="tag"># HTML5小游戏</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/22/outils-DOM/" rel="prev" title="DOM相关函数封装">
+                DOM相关函数封装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.jpg"
+                alt="非黑即白" />
+            
+              <p class="site-author-name" itemprop="name">非黑即白</p>
+              <p class="site-description motion-element" itemprop="description">时间不曾停止，我不曾放弃</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、概述"><span class="nav-text"><a href="#&#x4E00;&#x3001;&#x6982;&#x8FF0;" class="headerlink" title="&#x4E00;&#x3001;&#x6982;&#x8FF0;"></a>&#x4E00;&#x3001;&#x6982;&#x8FF0;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、场景搭建"><span class="nav-text"><a href="#&#x4E8C;&#x3001;&#x573A;&#x666F;&#x642D;&#x5EFA;" class="headerlink" title="&#x4E8C;&#x3001;&#x573A;&#x666F;&#x642D;&#x5EFA;"></a>&#x4E8C;&#x3001;&#x573A;&#x666F;&#x642D;&#x5EFA;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#①，确定游戏场景尺寸"><span class="nav-text"><a href="#&#x2460;&#xFF0C;&#x786E;&#x5B9A;&#x6E38;&#x620F;&#x573A;&#x666F;&#x5C3A;&#x5BF8;" class="headerlink" title="&#x2460;&#xFF0C;&#x786E;&#x5B9A;&#x6E38;&#x620F;&#x573A;&#x666F;&#x5C3A;&#x5BF8;"></a>&#x2460;&#xFF0C;&#x786E;&#x5B9A;&#x6E38;&#x620F;&#x573A;&#x666F;&#x5C3A;&#x5BF8;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#②，背景图片处理"><span class="nav-text"><a href="#&#x2461;&#xFF0C;&#x80CC;&#x666F;&#x56FE;&#x7247;&#x5904;&#x7406;" class="headerlink" title="&#x2461;&#xFF0C;&#x80CC;&#x666F;&#x56FE;&#x7247;&#x5904;&#x7406;"></a>&#x2461;&#xFF0C;&#x80CC;&#x666F;&#x56FE;&#x7247;&#x5904;&#x7406;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、建立Stage-amp-游戏主循环"><span class="nav-text"><a href="#&#x4E09;&#x3001;&#x5EFA;&#x7ACB;Stage-amp-&#x6E38;&#x620F;&#x4E3B;&#x5FAA;&#x73AF;" class="headerlink" title="&#x4E09;&#x3001;&#x5EFA;&#x7ACB;Stage &amp; &#x6E38;&#x620F;&#x4E3B;&#x5FAA;&#x73AF;"></a>&#x4E09;&#x3001;&#x5EFA;&#x7ACB;Stage &amp; &#x6E38;&#x620F;&#x4E3B;&#x5FAA;&#x73AF;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#①，建立Stage"><span class="nav-text"><a href="#&#x2460;&#xFF0C;&#x5EFA;&#x7ACB;Stage" class="headerlink" title="&#x2460;&#xFF0C;&#x5EFA;&#x7ACB;Stage"></a>&#x2460;&#xFF0C;&#x5EFA;&#x7ACB;Stage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#②，建立游戏主循环"><span class="nav-text"><a href="#&#x2461;&#xFF0C;&#x5EFA;&#x7ACB;&#x6E38;&#x620F;&#x4E3B;&#x5FAA;&#x73AF;" class="headerlink" title="&#x2461;&#xFF0C;&#x5EFA;&#x7ACB;&#x6E38;&#x620F;&#x4E3B;&#x5FAA;&#x73AF;"></a>&#x2461;&#xFF0C;&#x5EFA;&#x7ACB;&#x6E38;&#x620F;&#x4E3B;&#x5FAA;&#x73AF;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、创建动画"><span class="nav-text"><a href="#&#x56DB;&#x3001;&#x521B;&#x5EFA;&#x52A8;&#x753B;" class="headerlink" title="&#x56DB;&#x3001;&#x521B;&#x5EFA;&#x52A8;&#x753B;"></a>&#x56DB;&#x3001;&#x521B;&#x5EFA;&#x52A8;&#x753B;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#纹理集动画-SpriteSheet"><span class="nav-text"><a href="#&#x7EB9;&#x7406;&#x96C6;&#x52A8;&#x753B;-SpriteSheet" class="headerlink" title="&#x7EB9;&#x7406;&#x96C6;&#x52A8;&#x753B;(SpriteSheet)"></a>&#x7EB9;&#x7406;&#x96C6;&#x52A8;&#x753B;(SpriteSheet)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#用EaselJS实现纹理集动画"><span class="nav-text"><a href="#&#x7528;EaselJS&#x5B9E;&#x73B0;&#x7EB9;&#x7406;&#x96C6;&#x52A8;&#x753B;" class="headerlink" title="&#x7528;EaselJS&#x5B9E;&#x73B0;&#x7EB9;&#x7406;&#x96C6;&#x52A8;&#x753B;"></a>&#x7528;EaselJS&#x5B9E;&#x73B0;&#x7EB9;&#x7406;&#x96C6;&#x52A8;&#x753B;</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、创建地图"><span class="nav-text"><a href="#&#x4E94;&#x3001;&#x521B;&#x5EFA;&#x5730;&#x56FE;" class="headerlink" title="&#x4E94;&#x3001;&#x521B;&#x5EFA;&#x5730;&#x56FE;"></a>&#x4E94;&#x3001;&#x521B;&#x5EFA;&#x5730;&#x56FE;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#①，分析地图"><span class="nav-text"><a href="#&#x2460;&#xFF0C;&#x5206;&#x6790;&#x5730;&#x56FE;" class="headerlink" title="&#x2460;&#xFF0C;&#x5206;&#x6790;&#x5730;&#x56FE;"></a>&#x2460;&#xFF0C;&#x5206;&#x6790;&#x5730;&#x56FE;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#②，对地图每一个坐标的圆进行抽象-→-类"><span class="nav-text"><a href="#&#x2461;&#xFF0C;&#x5BF9;&#x5730;&#x56FE;&#x6BCF;&#x4E00;&#x4E2A;&#x5750;&#x6807;&#x7684;&#x5706;&#x8FDB;&#x884C;&#x62BD;&#x8C61;-&#x2192;-&#x7C7B;" class="headerlink" title="&#x2461;&#xFF0C;&#x5BF9;&#x5730;&#x56FE;&#x6BCF;&#x4E00;&#x4E2A;&#x5750;&#x6807;&#x7684;&#x5706;&#x8FDB;&#x884C;&#x62BD;&#x8C61; &#x2192; &#x7C7B;"></a>&#x2461;&#xFF0C;&#x5BF9;&#x5730;&#x56FE;&#x6BCF;&#x4E00;&#x4E2A;&#x5750;&#x6807;&#x7684;&#x5706;&#x8FDB;&#x884C;&#x62BD;&#x8C61; &#x2192; &#x7C7B;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#③，使用自定义类进行绘制地图"><span class="nav-text"><a href="#&#x2462;&#xFF0C;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x7C7B;&#x8FDB;&#x884C;&#x7ED8;&#x5236;&#x5730;&#x56FE;" class="headerlink" title="&#x2462;&#xFF0C;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x7C7B;&#x8FDB;&#x884C;&#x7ED8;&#x5236;&#x5730;&#x56FE;"></a>&#x2462;&#xFF0C;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x7C7B;&#x8FDB;&#x884C;&#x7ED8;&#x5236;&#x5730;&#x56FE;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#④，简单随机算法-→-初始地图"><span class="nav-text"><a href="#&#x2463;&#xFF0C;&#x7B80;&#x5355;&#x968F;&#x673A;&#x7B97;&#x6CD5;-&#x2192;-&#x521D;&#x59CB;&#x5730;&#x56FE;" class="headerlink" title="&#x2463;&#xFF0C;&#x7B80;&#x5355;&#x968F;&#x673A;&#x7B97;&#x6CD5; &#x2192; &#x521D;&#x59CB;&#x5730;&#x56FE;"></a>&#x2463;&#xFF0C;&#x7B80;&#x5355;&#x968F;&#x673A;&#x7B97;&#x6CD5; &#x2192; &#x521D;&#x59CB;&#x5730;&#x56FE;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、监听点击、判断点击圆"><span class="nav-text"><a href="#&#x516D;&#x3001;&#x76D1;&#x542C;&#x70B9;&#x51FB;&#x3001;&#x5224;&#x65AD;&#x70B9;&#x51FB;&#x5706;" class="headerlink" title="&#x516D;&#x3001;&#x76D1;&#x542C;&#x70B9;&#x51FB;&#x3001;&#x5224;&#x65AD;&#x70B9;&#x51FB;&#x5706;"></a>&#x516D;&#x3001;&#x76D1;&#x542C;&#x70B9;&#x51FB;&#x3001;&#x5224;&#x65AD;&#x70B9;&#x51FB;&#x5706;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#①-监听点击事件"><span class="nav-text"><a href="#&#x2460;-&#x76D1;&#x542C;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;" class="headerlink" title="&#x2460;. &#x76D1;&#x542C;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;"></a>&#x2460;. &#x76D1;&#x542C;&#x70B9;&#x51FB;&#x4E8B;&#x4EF6;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#②，点击切换圆的状态"><span class="nav-text"><a href="#&#x2461;&#xFF0C;&#x70B9;&#x51FB;&#x5207;&#x6362;&#x5706;&#x7684;&#x72B6;&#x6001;" class="headerlink" title="&#x2461;&#xFF0C;&#x70B9;&#x51FB;&#x5207;&#x6362;&#x5706;&#x7684;&#x72B6;&#x6001;"></a>&#x2461;&#xFF0C;&#x70B9;&#x51FB;&#x5207;&#x6362;&#x5706;&#x7684;&#x72B6;&#x6001;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非黑即白</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
